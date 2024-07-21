@@ -7,7 +7,7 @@ import {
   Platform,
   Image,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronLeftIcon, HeartIcon } from "react-native-heroicons/outline";
@@ -15,22 +15,56 @@ import { LinearGradient } from "expo-linear-gradient";
 import Cast from "@/components/Cast";
 import MovieList from "@/components/MovieList";
 import Loading from "@/components/Loading";
+import {
+  fallbackMoviePoster,
+  fetchMovieDetails,
+  fetchMovieCredits,
+  image500,
+  fetchSimilarMovies,
+} from "@/api/moviesdb";
 
 var { width, height } = Dimensions.get("window");
 const ios = Platform.OS === "ios";
 
 export default function MovieScreen({ navigation }) {
+  const scrollViewRef = useRef(null);
   const { params: item } = useRoute();
+  const movieId = item?.["item"]?.["id"];
   const [isFavourite, setIsFavourite] = useState(false);
-  const [cast, setCast] = useState([1, 2, 3, 4, 5, 6]);
-  const [similarMovies, setSimilarMovies] = useState([1, 2, 3, 4, 5, 6]);
-  const [loading, setLoading] = useState(false);
-  let movieName = "Demon Slayer and the return on the Demon King";
+  const [cast, setCast] = useState([]);
+  const [similarMovies, setSimilarMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [movie, setMovie] = useState({});
 
-  useEffect(() => {}, [item]);
+  useEffect(() => {
+    if (scrollViewRef.current && movie && movie["id"]) {
+      scrollViewRef.current.scrollTo({ y: 0, animated: true });
+    }
+    setLoading(true);
+    getMovieDetail(movieId);
+    getMovieCredits(movieId);
+    getSimilarMovies(movieId);
+  }, [item]);
+
+  const getMovieDetail = async (id) => {
+    const data = await fetchMovieDetails(id);
+    if (data) setMovie(data);
+    setLoading(false);
+  };
+
+  const getMovieCredits = async (id) => {
+    const data = await fetchMovieCredits(id);
+    if (data && data.cast) setCast(data.cast);
+  };
+
+  const getSimilarMovies = async (id) => {
+    const data = await fetchSimilarMovies(id);
+    if (data && data.results) setSimilarMovies(data.results);
+  };
 
   return (
     <ScrollView
+      ref={scrollViewRef}
       contentContainerStyle={{
         paddingBottom: 20,
       }}
@@ -64,7 +98,10 @@ export default function MovieScreen({ navigation }) {
         ) : (
           <View>
             <Image
-              source={require("../assets/images/poster1.jpg")}
+              // source={require("../assets/images/poster1.jpg")}
+              source={{
+                uri: image500(movie?.["poster_path"]) || fallbackMoviePoster,
+              }}
               style={{ width, height: height * 0.55 }}
             />
 
@@ -83,47 +120,50 @@ export default function MovieScreen({ navigation }) {
       <View style={{ marginTop: -(height * 0.09) }} className="space-y-3">
         {/* title */}
         <Text className=" text-white text-center text-3xl font-bold tracking-wider">
-          {movieName}
+          {movie?.["title"]}
         </Text>
         {/* Status , relese. runtime */}
 
-        <Text className="text-neutral-400 font-semibold text-base text-center">
-          Released * 2020 * 170 min
-        </Text>
+        {movie?.["id"] ? (
+          <Text className="text-neutral-400 font-semibold text-base text-center">
+            {movie?.["status"]} • {movie?.["release_date"]?.split("-")[0]} •{" "}
+            {movie?.["runtime"]} min
+          </Text>
+        ) : null}
 
         {/* genres */}
         <View className="flex-row justify-center mx-4 space-x-2">
-          <Text className="text-neutral-400 font-semibold text-base text-center">
-            Action *
-          </Text>
-          <Text className="text-neutral-400 font-semibold text-base text-center">
-            Thrill *
-          </Text>
-          <Text className="text-neutral-400 font-semibold text-base text-center">
-            Comedy
-          </Text>
+          {movie?.["genres"]?.map((genre, index) => {
+            let showDot = index + 1 != movie["genres"].length;
+            return (
+              <Text
+                key={index}
+                className="text-neutral-400 font-semibold text-base text-center"
+              >
+                {genre.name} {showDot ? "•" : null}
+              </Text>
+            );
+          })}
         </View>
 
         {/* Description */}
         <Text className="text-neutral-400 mx-4 tracking-wide">
-          Description. Tanjirou Kamado and his friends from the Demon Slayer
-          Corps accompany Kyoujurou Rengoku, the Flame Hashira, to investigate a
-          mysterious series of disappearances occurring inside a train. Little
-          do they know that Enmu, one of the Twelve Kizuki, is also on board and
-          has prepared a trap for them.
+          {movie?.["overview"]}
         </Text>
       </View>
 
       {/* cast */}
-      <Cast cast={cast} navigation={navigation} />
+      {cast.length > 0 && <Cast cast={cast} navigation={navigation} />}
 
       {/* Similar movies */}
-      <MovieList
-        title={"Similar Movies"}
-        data={similarMovies}
-        navigation={navigation}
-        hideSeeAll
-      />
+      {similarMovies.length > 0 && (
+        <MovieList
+          title={"Similar Movies"}
+          data={similarMovies}
+          navigation={navigation}
+          hideSeeAll
+        />
+      )}
     </ScrollView>
   );
 }

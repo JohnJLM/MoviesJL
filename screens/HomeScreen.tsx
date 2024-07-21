@@ -17,9 +17,9 @@ import { useEffect, useState } from "react";
 import MovieList from "@/components/MovieList";
 import Loading from "@/components/Loading";
 import {
-  fectchTopRatedgMovies,
-  fectchTrendingMovies,
-  fectchUpcominggMovies,
+  fetchTopRatedgMovies,
+  fetchTrendingMovies,
+  fetchUpcominggMovies,
 } from "@/api/moviesdb";
 
 var { width, height } = Dimensions.get("window");
@@ -38,18 +38,18 @@ export default function HomeScreen(props) {
   }, []);
 
   const getTrendingMoies = async () => {
-    const data = await fectchTrendingMovies();
+    const data = await fetchTrendingMovies();
     if (data && data.results) setTrending(data.results);
     setLoading(false);
   };
 
   const getUpcomingMoies = async () => {
-    const data = await fectchUpcominggMovies();
+    const data = await fetchUpcominggMovies();
     if (data && data.results) setUpcoming(data.results);
   };
 
   const getTopRatedMoies = async () => {
-    const data = await fectchTopRatedgMovies();
+    const data = await fetchTopRatedgMovies();
     if (data && data.results) setTopRated(data.results);
   };
   return (
@@ -82,12 +82,12 @@ export default function HomeScreen(props) {
           {trending.length > 0 && <TrendingMovies data={trending} {...props} />}
 
           {/* Upcoming Movies Row */}
-          {upcoming.length && (
+          {upcoming.length > 0 && (
             <MovieList title={"Upcoming"} data={upcoming} {...props} />
           )}
 
           {/* Top Rated Movies Row */}
-          {topRated && (
+          {topRated.length > 0 && (
             <MovieList title={"Top Rated"} data={topRated} {...props} />
           )}
         </ScrollView>

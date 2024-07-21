@@ -42,11 +42,13 @@ export default function MovieList({ title, data, navigation, hideSeeAll }) {
                 }}
                 style={{ width: width * 0.33, height: height * 0.22 }}
               />
-              <Text className="text-neutral-300 ml-1 text-center">
-                {item["title"].length > 16
-                  ? item["title"].slice(0, 16) + "..."
-                  : item["title"]}
-              </Text>
+              {item && item.title && (
+                <Text className="text-neutral-300 ml-1 text-center">
+                  {item?.title.length > 16
+                    ? item.title.slice(0, 16) + "..."
+                    : item.title}
+                </Text>
+              )}
             </View>
           </TouchableWithoutFeedback>
         ))}
