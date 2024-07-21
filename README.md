@@ -1,50 +1,57 @@
-# Welcome to your Expo app 👋
+# Movies JL - Movie Catalog | React Native with Expo 🎥📕
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Project Description 📖
 
-## Get started
+This is a React Native project developed with Expo, aimed at connecting to [The Movie Database (TMDb)](https://www.themoviedb.org/) API to retrieve detailed information about current movies and their actors. The application is designed as a catalog, allowing users to explore data on their favorite movies, cast members, similar movies, and search for specific movies within TMDb's database.
 
-1. Install dependencies
+## Demo 🎬
 
-   ```bash
-   npm install
-   ```
+| ![moviesJL Demo 1](https://firebasestorage.googleapis.com/v0/b/portfolio-johnjlm.appspot.com/o/moviesJL%2FmoviesJL-1.gif?alt=media&token=0bf7fbc6-9d68-40a1-95f8-ea8316e1877f) | ![moviesJL Demo 2](https://firebasestorage.googleapis.com/v0/b/portfolio-johnjlm.appspot.com/o/moviesJL%2FmoviesJL-2.gif?alt=media&token=7b430844-0751-4f8f-89ef-b9d789faa7cb) |
+| --- | --- |
 
-2. Start the app
+## Video with full demo
 
-   ```bash
-    npx expo start
-   ```
+[Video with full demo [Drive] 🎥](https://drive.google.com/file/d/1-An94BhfYWmgAqfa3zgwCBYJpFxvZQwx/view?usp=sharing)
 
-In the output, you'll find options to open the app in a
+## Download Android APK 📱
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+[Link Expo install APK: Movies JL](https://expo.dev/accounts/johnjlm/projects/moviesJL/builds/22c2073d-3d93-41d4-bf8d-2bc47dd0f706)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
+## Features 🕹️
 
-When you're ready, run:
+- **Movie Exploration:** View detailed information about popular movies, including synopsis, ratings, and other relevant data.
+- **Cast Information:** Check the full cast of each movie and get details about the actors.
+- **Actor Biographies:** Access detailed information about actors, including biographies and a list of movies they have been part of.
+- **Similar Movies:** Discover movies similar to your favorites.
+- **Movie Search:** Search for specific movies in TMDb's database.
+- **Poster Carousel:** Interact with a visually appealing carousel to navigate through movie posters.
 
-```bash
-npm run reset-project
-```
+## Technologies and Libraries Used 🤖
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- **Expo:** A platform for React Native that simplifies the development and deployment of mobile applications.
+- **TMDb API:** For retrieving data about movies and actors.
+- **NativeWind:** TailwindCSS implementation for React Native, used for efficient styling of the application.
+- **react-native-reanimated:** Used for complex and smooth animations within the app.
+- **react-native-gesture-handler:** Advanced gesture handling to enhance the interface interactivity.
+- **axios:** Library for making HTTP requests to the TMDb API.
+- **Other Libraries:** Used for handling icons and SVG graphics within the app.
 
-## Learn more
+## Challenges and Learnings 🧠🔎
 
-To learn more about developing your project with Expo, look at the following resources:
+This project was a significant challenge, providing an excellent opportunity to learn, practice, and better understand the new version of Expo. The implementation of various libraries and the integration with the TMDb API were key aspects of developing this application.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Installation and Setup ⚙️
 
-## Join the community
+1. Clone this repository to your local machine.
+2. Install dependencies with `npm install` or `yarn install`.
+3. Start the project with `expo start`.
+4. Configure your `.env` file with your TMDb API key.
 
-Join our community of developers creating universal apps.
+## Contribution 🚀
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Contributions are welcome! Please submit a pull request for suggestions on improvements or new features.
+
+## License
+
+This project is licensed under the MIT License.
