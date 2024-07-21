@@ -4,13 +4,46 @@
   },
   "build": {
     "development": {
+      "env": {
+        "EXPO_PUBLIC_API_KEY": "c78f01ae7c5fecb2d68bfef0739b573d"
+      },
       "developmentClient": true,
       "distribution": "internal"
     },
     "preview": {
+      "env": {
+        "EXPO_PUBLIC_API_KEY": "c78f01ae7c5fecb2d68bfef0739b573d"
+      },
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "preview2": {
+      "env": {
+        "EXPO_PUBLIC_API_KEY": "c78f01ae7c5fecb2d68bfef0739b573d"
+      },
+      "android": {
+        "gradleCommand": ":app:assembleRelease"
+      }
+    },
+    "preview3": {
+      "env": {
+        "EXPO_PUBLIC_API_KEY": "c78f01ae7c5fecb2d68bfef0739b573d"
+      },
+      "developmentClient": true
+    },
+    "preview4": {
+      "env": {
+        "EXPO_PUBLIC_API_KEY": "c78f01ae7c5fecb2d68bfef0739b573d"
+      },
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "env": {
+        "EXPO_PUBLIC_API_KEY": "c78f01ae7c5fecb2d68bfef0739b573d"
+      }
+    }
   },
   "submit": {
     "production": {}
