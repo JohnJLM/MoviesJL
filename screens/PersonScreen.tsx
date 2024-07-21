@@ -50,7 +50,6 @@ export default function PersonScreen({ navigation }) {
 
   const getPersonMovies = async (id) => {
     const data = await fetchPersonMovies(id);
-    console.log(data, "movies");
     if (data && data.cast) setPersonalMovies(data.cast);
   };
 

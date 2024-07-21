@@ -1,0 +1,20 @@
+# .github/workflows/main.yml
+name: Build and Deploy
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+      - name: Install dependencies
+        run: npm install
+      - name: Run build
+        env:
+          API_KEY: ${{ secrets.EXPO_PUBLIC_API_KEY }}
+        run: npm run build

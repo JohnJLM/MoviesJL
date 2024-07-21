@@ -1,5 +1,6 @@
 import axios from "axios";
-import { apiKey } from "../constants";
+
+const apiKey = process.env.EXPO_PUBLIC_API_KEY;
 
 // EndPoints
 const apiBase = "https://api.themoviedb.org/3";
